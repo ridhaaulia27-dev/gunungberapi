@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif - Gunung Berapi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for beautiful dashboard UI -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Plus Jakarta Sans for modern clean typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #2c100b, #0f0705, #080302);
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar for material content */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(239, 68, 68, 0.6);
+        }
+        /* Pulse glow animation for interactive feel */
+        @keyframes magmaGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(249, 115, 22, 0.4); }
+        }
+        .magma-container {
+            animation: magmaGlow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-100 flex items-center justify-center p-2 sm:p-4 md:p-6">
+
+    <!-- 16:9 Aspect Ratio Container Wrapper -->
+    <div class="w-full max-w-7xl aspect-[16/9] magma-container bg-neutral-950/80 backdrop-blur-xl border border-orange-500/20 rounded-3xl overflow-hidden flex flex-col shadow-2xl relative">
+        
+        <!-- Lava Decorative Accent Lines -->
+        <div class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-red-600 via-orange-500 to-amber-400"></div>
+
+        <!-- TOP BAR (Header & Metadata) -->
+        <header class="flex flex-wrap items-center justify-between px-6 py-4 bg-neutral-900/40 border-b border-orange-500/10 z-10 gap-2">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-gradient-to-br from-red-600 to-orange-500 rounded-xl text-white shadow-lg shadow-orange-600/20">
+                    <i data-lucide="volcano" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent">
+                        VULKANISME & GUNUNG BERAPI
+                    </h1>
+                    <p class="text-xs text-orange-400 font-semibold tracking-wider uppercase">Geografi Kelas X SMA • Fase E</p>
+                </div>
+            </div>
+
+            <!-- Creator & School Badge -->
+            <div class="flex items-center space-x-3 bg-neutral-900/60 border border-white/5 px-4 py-2 rounded-2xl">
+                <div class="w-8 h-8 rounded-full bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                </div>
+                <div class="text-left">
+                    <p class="text-xs text-slate-400">Penyusun</p>
+                    <p class="text-xs font-bold text-slate-200">Ridha, S.Pd. <span class="text-[10px] text-orange-400 font-normal">| SMAN 1 Bintaan</span></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT (Split Screen 50:50) -->
+        <main class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+            
+            <!-- LEFT COLUMN: Learning Content & Tabs (50%) -->
+            <section class="w-full md:w-1/2 flex flex-col border-r border-orange-500/10 bg-neutral-900/20 overflow-hidden">
+                
+                <!-- NAVIGATION TABS -->
+                <nav class="flex border-b border-white/5 bg-neutral-950/50 p-2 gap-2">
+                    <button onclick="switchTab('tujuan')" id="tab-tujuan" class="flex-1 flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-md shadow-orange-600/10">
+                        <i data-lucide="target" class="w-4 h-4"></i>
+                        <span>Tujuan</span>
+                    </button>
+                    <button onclick="switchTab('materi')" id="tab-materi" class="flex-1 flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 text-slate-400 hover:text-white hover:bg-white/5">
+                        <i data-lucide="book-open" class="w-4 h-4"></i>
+                        <span>Uraian Materi</span>
+                    </button>
+                    <button onclick="switchTab('kuis')" id="tab-kuis" class="flex-1 flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 text-slate-400 hover:text-white hover:bg-white/5">
+                        <i data-lucide="help-circle" class="w-4 h-4"></i>
+                        <span>Kuis Kilat</span>
+                    </button>
+                </nav>
+
+                <!-- TAB CONTENT CONTAINER -->
+                <div class="flex-1 p-6 overflow-y-auto custom-scrollbar">
+                    
+                    <!-- TAB 1: TUJUAN PEMBELAJARAN -->
+                    <div id="content-tujuan" class="space-y-6">
+                        <div class="space-y-2">
+                            <span class="px-2.5 py-1 text-[10px] uppercase tracking-widest font-extrabold text-orange-400 bg-orange-500/10 border border-orange-500/20 rounded-full">Kompetensi Dasar</span>
+                            <h2 class="text-xl font-bold text-white">Apa yang akan kamu pelajari hari ini?</h2>
+                            <p class="text-sm text-slate-400 leading-relaxed">Melalui eksplorasi modul interaktif dan model simulasi 3D di sebelah kanan, kamu diharapkan mampu menguasai kompetensi berikut:</p>
+                        </div>
+
+                        <!-- Objective Cards -->
+                        <div class="grid gap-3">
+                            <div class="flex items-start space-x-3 p-3.5 rounded-2xl bg-white/5 border border-white/5 hover:border-orange-500/20 transition-all duration-300">
+                                <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-bold text-slate-200">Mengidentifikasi Struktur Gunung Berapi</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Mengamati bagian-bagian utama gunung api seperti dapur magma, pipa kepunden, dan kawah melalui model 3D.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3 p-3.5 rounded-2xl bg-white/5 border border-white/5 hover:border-orange-500/20 transition-all duration-300">
+                                <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-bold text-slate-200">Menganalisis Tipe-tipe Letusan (Erupsi)</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Memahami perbedaan tipe letusan berdasarkan derajat keenceran magma dan tekanan gasnya.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3 p-3.5 rounded-2xl bg-white/5 border border-white/5 hover:border-orange-500/20 transition-all duration-300">
+                                <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
+                                    <i data-lucide="check" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-bold text-slate-200">Mengevaluasi Dampak Vulkanisme</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Menjelaskan dampak positif dan negatif dari aktivitas gunung berapi terhadap kehidupan manusia di sekitarnya.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Tip -->
+                        <div class="p-3.5 rounded-2xl bg-orange-600/10 border border-orange-500/20 flex items-center space-x-3">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-orange-400 shrink-0"></i>
+                            <p class="text-[11px] text-orange-300 leading-normal">
+                                <strong>Petunjuk:</strong> Gunakan jarimu atau klik & drag pada simulasi 3D di sebelah kanan untuk melihat penampang dalam gunung api secara nyata!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: URAIAN MATERI (INTERAKTIF) -->
+                    <div id="content-materi" class="hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+                                <i data-lucide="flame" class="w-5 h-5 text-red-500"></i>
+                                <span>Konsep Dasar Vulkanisme</span>
+                            </h2>
+                            <div class="text-[11px] text-slate-400 bg-white/5 px-2.5 py-1 rounded-full border border-white/5">Bab 4: Lithosfer</div>
+                        </div>
+
+                        <!-- Sub-navigation Accordion Style -->
+                        <div class="space-y-3">
+                            <!-- Bagian 1 -->
+                            <div class="rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden">
+                                <button onclick="toggleAccordion('acc-1')" class="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-all">
+                                    <span class="text-xs font-bold text-orange-300">1. Apa itu Vulkanisme?</span>
+                                    <i id="icon-acc-1" data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
+                                </button>
+                                <div id="acc-1" class="hidden p-4 pt-0 border-t border-white/5 text-xs text-slate-300 leading-relaxed space-y-2">
+                                    <p>Vulkanisme adalah seluruh gejala yang berkaitan dengan keluarnya magma dari dalam bumi ke permukaan bumi melalui rekahan, retakan, atau pipa kepunden (diatroma).</p>
+                                    <p>Proses ini menghasilkan bentukan kerucut raksasa yang kita kenal sebagai gunung berapi.</p>
+                                </div>
+                            </div>
+
+                            <!-- Bagian 2 -->
+                            <div class="rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden">
+                                <button onclick="toggleAccordion('acc-2')" class="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-all">
+                                    <span class="text-xs font-bold text-orange-300">2. Struktur Utama Gunung Berapi</span>
+                                    <i id="icon-acc-2" data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
+                                </button>
+                                <div id="acc-2" class="hidden p-4 pt-0 border-t border-white/5 text-xs text-slate-300 leading-relaxed space-y-2">
+                                    <ul class="list-disc pl-4 space-y-1.5 text-slate-300">
+                                        <li><strong>Dapur Magma (Magma Chamber):</strong> Sumber magma cair yang sangat panas jauh di dalam kerak bumi.</li>
+                                        <li><strong>Pipa Kepunden (Vent):</strong> Saluran utama tempat naiknya magma menuju lubang kawah.</li>
+                                        <li><strong>Kawah Utama (Crater):</strong> Mulut kepunden tempat keluarnya material vulkanik saat erupsi.</li>
+                                        <li><strong>Sill / Lakolit:</strong> Magma yang menyusup di antara lapisan batuan horizontal.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Bagian 3 -->
+                            <div class="rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden">
+                                <button onclick="toggleAccordion('acc-3')" class="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-all">
+                                    <span class="text-xs font-bold text-orange-300">3. Jenis Intrusi vs Ekstrusi Magma</span>
+                                    <i id="icon-acc-3" data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
+                                </button>
+                                <div id="acc-3" class="hidden p-4 pt-0 border-t border-white/5 text-xs text-slate-300 leading-relaxed space-y-2">
+                                    <div class="grid grid-cols-2 gap-3 mt-1">
+                                        <div class="p-2.5 rounded-xl bg-orange-600/5 border border-orange-500/10">
+                                            <p class="font-bold text-[11px] text-orange-400 mb-1">Intrusi Magma</p>
+                                            <p class="text-[10px] text-slate-400">Penyusupan magma di dalam lapisan bumi tanpa mencapai permukaan bumi.</p>
+                                        </div>
+                                        <div class="p-2.5 rounded-xl bg-red-600/5 border border-red-500/10">
+                                            <p class="font-bold text-[11px] text-red-400 mb-1">Ekstrusi Magma</p>
+                                            <p class="text-[10px] text-slate-400">Proses keluarnya magma sampai ke permukaan bumi dalam bentuk lava atau piroklastik.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Fact -->
+                        <div class="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-xs">
+                            <p class="font-bold text-amber-400 flex items-center gap-1.5 mb-1">
+                                <i data-lucide="info" class="w-4 h-4"></i> Tahukah Kamu?
+                            </p>
+                            <p class="text-slate-300 leading-relaxed">Indonesia terletak di jalur <strong>Ring of Fire (Cincin Api Pasifik)</strong>, menjadikannya negara dengan konsentrasi gunung berapi aktif paling melimpah di dunia.</p>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: KUIS KILAT -->
+                    <div id="content-kuis" class="hidden space-y-6">
+                        <div class="space-y-1">
+                            <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+                                <i data-lucide="award" class="w-5 h-5 text-amber-400"></i>
+                                <span>Uji Pemahamanmu</span>
+                            </h2>
+                            <p class="text-xs text-slate-400">Jawab pertanyaan berikut berdasarkan pengamatan model 3D di samping.</p>
+                        </div>
+
+                        <!-- Quiz Question -->
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-3">
+                            <span class="text-[10px] font-bold text-orange-400 uppercase tracking-widest">Pertanyaan 1 Dari 1</span>
+                            <p class="text-xs font-semibold text-slate-200">Manakah bagian gunung berapi yang berfungsi sebagai kantung penyimpanan magma cair cair sebelum meletus?</p>
+                            
+                            <!-- Options -->
+                            <div class="grid gap-2">
+                                <button onclick="answerQuiz(true)" class="quiz-option w-full p-3 rounded-xl border border-white/5 hover:border-orange-500/30 text-left text-xs text-slate-300 transition-all flex justify-between items-center bg-white/[0.02]">
+                                    <span>A. Dapur Magma (Magma Chamber)</span>
+                                    <span class="correct-indicator hidden text-emerald-400 font-bold"><i data-lucide="check-circle" class="w-4 h-4"></i></span>
+                                </button>
+                                <button onclick="answerQuiz(false)" class="quiz-option w-full p-3 rounded-xl border border-white/5 hover:border-orange-500/30 text-left text-xs text-slate-300 transition-all flex justify-between items-center bg-white/[0.02]">
+                                    <span>B. Pipa Kepunden (Vent)</span>
+                                    <span class="wrong-indicator hidden text-red-400 font-bold"><i data-lucide="x-circle" class="w-4 h-4"></i></span>
+                                </button>
+                                <button onclick="answerQuiz(false)" class="quiz-option w-full p-3 rounded-xl border border-white/5 hover:border-orange-500/30 text-left text-xs text-slate-300 transition-all flex justify-between items-center bg-white/[0.02]">
+                                    <span>C. Kawah Utama (Crater)</span>
+                                    <span class="wrong-indicator hidden text-red-400 font-bold"><i data-lucide="x-circle" class="w-4 h-4"></i></span>
+                                </button>
+                            </div>
+
+                            <!-- Feedback -->
+                            <div id="quiz-feedback" class="hidden p-3 rounded-xl text-xs text-slate-300 leading-normal">
+                                <!-- Will be filled by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- LEFT COLUMN FOOTER (Interactive Hint) -->
+                <footer class="p-4 bg-neutral-950/40 border-t border-white/5 flex justify-between items-center text-[11px] text-slate-500">
+                    <div class="flex items-center space-x-1">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Sesi Aktif</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span>Gunakan PC / Tablet untuk pengalaman terbaik</span>
+                    </div>
+                </footer>
+
+            </section>
+
+            <!-- RIGHT COLUMN: 3D/AR Volcano Simulation Frame (50%) -->
+            <section class="w-full md:w-1/2 h-64 md:h-full relative flex flex-col p-4 bg-neutral-950">
+                
+                <!-- Frame Header Badge -->
+                <div class="absolute top-6 left-6 z-20 flex items-center space-x-2 bg-neutral-900/90 backdrop-blur border border-white/10 px-3.5 py-1.5 rounded-full shadow-lg">
+                    <div class="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping"></div>
+                    <span class="text-[10px] font-bold text-orange-400 uppercase tracking-widest flex items-center gap-1">
+                        <i data-lucide="glasses" class="w-3.5 h-3.5"></i> Simulasi 3D/AR Aktif
+                    </span>
+                </div>
+
+                <!-- Frame Tooltip Instruction -->
+                <div class="absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between bg-neutral-900/90 backdrop-blur border border-white/10 p-3 rounded-2xl shadow-lg pointer-events-none md:flex hidden">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-orange-400"></i>
+                        <span class="text-[10px] text-slate-300">Klik-drag untuk rotasi. Scroll untuk zoom model 3D.</span>
+                    </div>
+                    <span class="text-[10px] font-extrabold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">ASSEMBLR EDU</span>
+                </div>
+
+                <!-- 3D Viewer Container (Strictly Embedded) -->
+                <div class="flex-1 w-full h-full rounded-2xl overflow-hidden border border-orange-500/15 bg-neutral-900 relative shadow-inner">
+                    <!-- Embedded Assemblr Edu Iframe -->
+                    <iframe 
+                        src="https://viewer.assemblrworld.com/Embed/-rHZH6Z4psShQFYQKkgW" 
+                        class="w-full h-full border-0 rounded-2xl" 
+                        allow="camera; microphone; gyroscope; accelerometer; magnetometer; xr-spatial-tracking; fullscreen" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <!-- JS For Tab Switching and Interactive Features -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // TAB SWITCHER LOGIC
+        function switchTab(tabName) {
+            // List of tabs and contents
+            const tabs = ['tujuan', 'materi', 'kuis'];
+            
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-${tab}`);
+                const content = document.getElementById(`content-${tab}`);
+                
+                if (tab === tabName) {
+                    // Active Styles
+                    btn.className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-md shadow-orange-600/10";
+                    content.classList.remove('hidden');
+                } else {
+                    // Inactive Styles
+                    btn.className = "flex-1 flex items-center justify-center space-x-2 py-2.5 px-3 rounded-xl text-xs font-semibold tracking-wide transition-all duration-300 text-slate-400 hover:text-white hover:bg-white/5";
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        // ACCORDION LOGIC FOR MATERIAL
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+            const isHidden = el.classList.contains('hidden');
+            
+            // Close all first for neatness
+            document.querySelectorAll('[id^="acc-"]').forEach(acc => {
+                acc.classList.add('hidden');
+            });
+            document.querySelectorAll('[id^="icon-acc-"]').forEach(ic => {
+                ic.classList.remove('rotate-180');
+            });
+
+            // If it was hidden, open it
+            if (isHidden) {
+                el.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            }
+        }
+
+        // QUIZ INTERACTION LOGIC
+        function answerQuiz(isCorrect) {
+            const feedback = document.getElementById('quiz-feedback');
+            const options = document.querySelectorAll('.quiz-option');
+            
+            // Disable further clicks
+            options.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+            });
+
+            feedback.classList.remove('hidden');
+            
+            if (isCorrect) {
+                feedback.className = "p-3 rounded-xl text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-500/20";
+                feedback.innerHTML = "🎉 <strong>Hebat! Jawabanmu Benar.</strong> Dapur Magma (Magma Chamber) adalah tempat tersimpannya batuan cair bersuhu sangat tinggi sebelum terdorong keluar menuju permukaan bumi.";
+                // Show indicator
+                event.currentTarget.classList.remove('opacity-50');
+                event.currentTarget.classList.add('border-emerald-500', 'bg-emerald-500/5');
+                event.currentTarget.querySelector('.correct-indicator').classList.remove('hidden');
+            } else {
+                feedback.className = "p-3 rounded-xl text-xs text-red-300 bg-red-500/10 border border-red-500/20";
+                feedback.innerHTML = "❌ <strong>Kurang Tepat.</strong> Jawabannya adalah <strong>A. Dapur Magma</strong>. Mari amati model 3D secara lebih saksama untuk melihat posisinya yang berada paling bawah.";
+                // Show indicator
+                event.currentTarget.classList.remove('opacity-50');
+                event.currentTarget.classList.add('border-red-500', 'bg-red-500/5');
+                event.currentTarget.querySelector('.wrong-indicator').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
